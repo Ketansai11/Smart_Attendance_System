@@ -38,6 +38,7 @@ Clone the YOLO-V9 repository and install the necessary dependencies. Note that w
 
 # Download Model Weights
 Download the pre-trained model weights required for YOLO-V9.
+
 `!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-c.pt`
 
 `!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-e.pt`
