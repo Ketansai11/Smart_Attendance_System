@@ -1,32 +1,81 @@
-# Smart Attendance System
-This repository contains a Jupyter Notebook that demonstrates the use of a smart attendance system. This system leverages computer vision and machine learning techniques to automate the process of recording attendance.
+# Yolo-V9 for Smart Attendance System
+This repository contains a Jupyter Notebook that demonstrates how to use the YOLO-V9 (You Only Look Once, Version 9) model for a smart attendance system. The notebook includes steps to set up the environment, download necessary datasets and model weights, and perform inference and training using YOLO-V9.
 
-# Project Overview
-The Smart Attendance System uses facial recognition to identify and record the presence of individuals in a given setting, such as a classroom or office. This project showcases how to set up and implement this system using various Python libraries and tools.
+# Table of Contents
+  1. Before You Start
+  2. Clone and Install
+  3. Download Model Weights
+  4. Detection with Pre-trained COCO Model
+  5. Gelan-c
+  6. Yolov9-e
+  7. Authenticate and Download the Dataset
+  8. Train Custom Model
+  9. Examine Training Results
+  10. Validate Custom Model
+  11. Inference with Custom Model
 
 # Before You Start
-Ensure that your environment has the necessary hardware and software requirements:
-  1. Hardware: A webcam or camera for capturing images.
-  2. Software: Python 3.x, Jupyter Notebook, and the required Python libraries.
-# Setup Instructions
-  1. Clone the Repository: Start by cloning this repository to your local machine.
-  2. Install Dependencies: Install all necessary Python libraries and packages.
-  3. Download Pre-trained Models: If using pre-trained models for facial recognition, download them and place them in the specified directory.
-# Data Preparation
-  1. Collect Images: Gather images of individuals whose attendance you want to record.
-  2. Preprocess Images: Ensure that the images are properly labeled and formatted for the facial recognition model.
-  3. Train the Model: If not using a pre-trained model, train the facial recognition model with your dataset.
-# Running the System
-  1. Initialize the Camera: Ensure that your camera is connected and functioning.
-  2. Start the Application: Run the Jupyter Notebook and execute the cells in order. The system will capture images, recognize faces, and      record attendance.
-  3.  Review Attendance Records: After running the system, review the recorded attendance logs to ensure accuracy.
-# Additional Features
-  1. Real-time Processing: The system processes images in real-time for instant attendance recording.
-  2. Accuracy Metrics: Evaluate the accuracy of the facial recognition model using standard metrics.
-  3. Logging: Maintain logs of attendance records for future reference.
-# Troubleshooting
-  1. Camera Issues: Ensure that your camera is properly connected and configured.
-  2. Model Accuracy: If the recognition accuracy is low, consider improving your dataset or retraining the model with more data.
-  3. Dependencies: Verify that all required libraries are installed and up to date.
-# Conclusion
-The Smart Attendance System is an efficient way to automate attendance recording using advanced machine learning techniques. This project provides a foundation that can be expanded with additional features and improvements.
+Ensure that you have access to a GPU for faster processing. You can verify GPU access using the `nvidia-smi` command. If needed, navigate to `Edit -> Notebook settings -> Hardware accelerator`, set it to GPU, and click Save.
+
+`!nvidia-smi`
+
+# Clone and Install
+Clone the YOLO-V9 repository and install the necessary dependencies. Note that we are using a forked version of the repository due to a bug in the original.
+
+`import os`
+
+`HOME = os.getcwd()`
+
+`print(HOME)`
+
+`!git clone https://github.com/SkalskiP/yolov9.git`
+
+`%cd yolov9`
+
+`!pip install -r requirements.txt -q`
+
+`!pip install -q roboflow`
+
+# Download Model Weights
+Download the pre-trained model weights required for YOLO-V9.
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-c.pt`
+
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-e.pt`
+
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-c.pt`
+
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-e.pt`
+
+# Detection with Pre-trained COCO Model
+Use the pre-trained COCO model to perform detection on the example data.
+
+# Gelan-c
+Detailed instructions for configuring Gelan-c.
+
+# Yolov9-e
+Detailed instructions for configuring Yolov9-e.
+
+# Authenticate and Download the Dataset
+Authenticate with Roboflow to download the dataset. Ensure the dataset is saved inside the `{HOME}/yolov9` directory for successful training. The example uses the `attendance-dataset dataset`.
+
+`from roboflow import Roboflow`
+
+`rf = Roboflow(api_key="YOUR_API_KEY")`
+
+`project = rf.workspace("roboflow-jvuqo").project("attendance-dataset-3zvbc")`
+
+`dataset = project.version(1).download("yolov9")`
+
+# Train Custom Model
+Instructions and commands for training the YOLO-V9 model on the downloaded dataset will be provided in the notebook.
+
+# Examine Training Results
+Analyze the results of your model training.
+
+# Validate Custom Model
+Validate the performance of your custom model on a test dataset.
+
+# Inference with Custom Model
+Run inference using the trained model and visualize the results. If you want to run inference using your own file as input, upload the image to the notebook and update the `SOURCE_IMAGE_PATH` variable with the path to your file.
+
+By default, the results of each inference session are saved in `{HOME}/yolov9/runs/detect/`, in directories named `exp`, `exp2`, `exp3`, etc. You can override this behavior using the `--name parameter`.
